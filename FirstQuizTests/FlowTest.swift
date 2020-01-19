@@ -34,17 +34,27 @@ class FlowTest: XCTestCase {
         let sut = Flow(question: ["Q1"], router: router)
         sut.start()
         
-        XCTAssertEqual(router.routedQuestion, "Q1")
+        XCTAssertEqual(router.routedQuestion, ["Q1"])
     }
+    
+    func test_startTwice_withOneQuestion_doesRouteToFirstQuestion() {
+        let router = RouterSpy()
+        let sut = Flow(question: ["Q1"], router: router)
+        sut.start()
+        sut.start()
+        
+        XCTAssertEqual(router.routedQuestion, ["Q1", "Q1"])
+    }
+    
     
     
     class RouterSpy: Router {
         var routedQuestionCount: Int = 0
-        var routedQuestion: String? = nil
+        var routedQuestion: [String] = []
         
         func route(to question: String) {
             routedQuestionCount += 1
-            routedQuestion = question
+            routedQuestion.append(question)
         }
     }
     
