@@ -8,17 +8,24 @@
 
 import Foundation
 
-protocol Router { }
+protocol Router {
+    func route(to question: String)
+}
 
 class Flow {
     let router: Router
+    let questions: [String]
 
-    init (router: Router) {
+    init (question: [String], router: Router) {
         self.router = router
+        self.questions = question
     }
 
     func start() {
-        
+        if !questions.isEmpty {
+            router.route(to: "")
+        }
+       
     }
 }
 
