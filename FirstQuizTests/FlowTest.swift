@@ -14,11 +14,16 @@ class FlowTest: XCTestCase {
     
     func test_start_withNoQuestion_doesNotRoute() {
         
-        let router = Router()
+        let router = RouterSpy()
         let sut = Flow(router: router)
         sut.start()
         
         XCTAssertEqual(router.routedQuestionCount, 0)
+    }
+    
+    
+    class RouterSpy: Router {
+        var routedQuestionCount: Int = 0
     }
     
 }

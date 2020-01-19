@@ -17,5 +17,8 @@ class Flow {
         self.router = router
     }
 
+    func start() {
+        
+    }
 }
 
