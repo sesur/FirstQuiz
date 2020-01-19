@@ -29,12 +29,22 @@ class FlowTest: XCTestCase {
         XCTAssertEqual(router.routedQuestionCount, 1)
     }
     
+    func test_start_withOneQuestion_doesRouteToCorrectQuestion() {
+        let router = RouterSpy()
+        let sut = Flow(question: ["Q1"], router: router)
+        sut.start()
+        
+        XCTAssertEqual(router.routedQuestion, "Q1")
+    }
+    
     
     class RouterSpy: Router {
         var routedQuestionCount: Int = 0
+        var routedQuestion: String? = nil
         
         func route(to question: String) {
             routedQuestionCount += 1
+            routedQuestion = question
         }
     }
     
