@@ -13,12 +13,12 @@ protocol Router {
 }
 
 class Flow {
-    let router: Router
-    let questions: [String]
+    private let router: Router
+    private let questions: [String]
     
-    init (question: [String], router: Router) {
+    init (questions: [String], router: Router) {
         self.router = router
-        self.questions = question
+        self.questions = questions
     }
     
     func start() {
