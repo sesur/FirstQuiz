@@ -9,7 +9,7 @@
 import Foundation
 
 protocol Router {
-    func route(to question: String)
+    func route(to question: String, answerCallback: @escaping (String) -> Void)
 }
 
 class Flow {
@@ -22,8 +22,13 @@ class Flow {
     }
 
     func start() {
-        if !questions.isEmpty {
-            router.route(to: "Q1")
+        if let firstQuestion = questions.first {
+            router.route(to: firstQuestion) {[weak self] _ in
+                guard let strongSelf = self else { return }
+                let firstIndex = strongSelf.questions.firstIndex(of: firstQuestion)!
+                let nextQuestion = strongSelf.questions[firstIndex+1]
+                strongSelf.router.route(to: nextQuestion) {_ in }
+            }
         }
        
     }
