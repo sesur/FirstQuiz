@@ -38,6 +38,8 @@ class Flow {
                 if firstIndex+1 < strongSelf.questions.count {
                     let nextQuestion = strongSelf.questions[firstIndex+1]
                     strongSelf.router.route(to: nextQuestion, answerCallback: strongSelf.routeToNext(question: nextQuestion))
+                } else {
+                    strongSelf.router.route(to: ["Q1":"A1"])
                 }
             }
         }
