@@ -10,6 +10,7 @@ import Foundation
 
 protocol Router {
     func route(to question: String, answerCallback: @escaping (String) -> Void)
+    func route(to result: [String: String])
 }
 
 class Flow {
@@ -24,6 +25,8 @@ class Flow {
     func start() {
         if let firstQuestion = questions.first {
             router.route(to: firstQuestion, answerCallback: routeToNext(question: firstQuestion))
+        } else {
+            router.route(to: [:])
         }
     }
     
