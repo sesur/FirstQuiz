@@ -12,7 +12,7 @@ import XCTest
 
 class FlowTest: XCTestCase {
     
-     let router = RouterSpy()
+    let router = RouterSpy()
     
     func test_start_withNoQuestion_doesNotRoute() {
         let sut = makeSut(questions: [])
@@ -53,9 +53,8 @@ class FlowTest: XCTestCase {
     func test_startAnswerFirstQuestion_withTwoQuestions_doesRouteToSecondQuestion() {
         let sut = makeSut(questions: ["Q1", "Q2"])
         sut.start()
-
+        
         router.answerCallback("A1")
-
         XCTAssertEqual(router.routedQuestions, ["Q1", "Q2"])
     }
     
@@ -102,23 +101,27 @@ class FlowTest: XCTestCase {
     }
     
     
-    
+    func test_start_withOneQuestion_doesNotRouteToResults() {
+        makeSut(questions: ["Q1"]).start()
+        
+        XCTAssertNil(router.routedResults)
+    }
     
     //  MARK:- Helpers
-
+    
     func makeSut(questions: [String]) -> Flow {
         return Flow(questions: questions, router: router)
     }
     
     
     class RouterSpy: Router {
-//        var routedQuestionCount: Int = 0
+        //        var routedQuestionCount: Int = 0
         var routedQuestions: [String] = []
         var answerCallback: (String) -> Void = {_ in }
         var routedResults: [String: String]? = nil
         
         func route(to question: String, answerCallback: @escaping (String) -> Void) {
-//            routedQuestionCount += 1
+            //            routedQuestionCount += 1
             routedQuestions.append(question)
             self.answerCallback = answerCallback
         }
