@@ -41,12 +41,12 @@ class Flow {
     
     private func routeNext(_ question: String, _ answer: String) {
         if let firstIndex = questions.firstIndex(of: question) {
-           results[question] = answer
+            results[question] = answer
             if firstIndex+1 < questions.count {
                 let nextQuestion = questions[firstIndex+1]
                 router.route(to: nextQuestion, answerCallback: routeToNext(question: nextQuestion))
             } else {
-                router.route(to: results)
+                 router.route(to: results)
             }
         }
     }
