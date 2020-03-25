@@ -46,7 +46,7 @@ class Flow {
                 let nextQuestion = questions[firstIndex+1]
                 router.route(to: nextQuestion, answerCallback: nextCallback(question: nextQuestion))
             } else {
-                 router.route(to: results)
+                router.route(to: results)
             }
         }
     }

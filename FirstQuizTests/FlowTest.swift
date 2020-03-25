@@ -108,12 +108,12 @@ class FlowTest: XCTestCase {
     }
     
     func test_startAnswerFirstQuestion_withTwoQuestion_doesNotRouteToResults() {
-         let sut =  makeSut(questions: ["Q1", "Q2"])
-         sut.start()
-         
-         router.answerCallback("A1")
-         XCTAssertNil(router.routedResults)
-     }
+        let sut =  makeSut(questions: ["Q1", "Q2"])
+        sut.start()
+        
+        router.answerCallback("A1")
+        XCTAssertNil(router.routedResults)
+    }
     
     //  MARK:- Helpers
     
@@ -123,13 +123,11 @@ class FlowTest: XCTestCase {
     
     
     class RouterSpy: Router {
-        //        var routedQuestionCount: Int = 0
         var routedQuestions: [String] = []
         var answerCallback: (String) -> Void = {_ in }
         var routedResults: [String: String]? = nil
         
         func route(to question: String, answerCallback: @escaping (String) -> Void) {
-            //            routedQuestionCount += 1
             routedQuestions.append(question)
             self.answerCallback = answerCallback
         }
