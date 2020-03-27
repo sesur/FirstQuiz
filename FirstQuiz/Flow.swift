@@ -14,14 +14,17 @@ protocol Router {
     associatedtype Answer
     
     func route(to question: Question, answerCallback: @escaping (Answer) -> Void)
-    func route(to result: [Question: Answer])
+    func route(to result: Results<Question, Answer>)
+}
+
+struct Results<Question: Hashable, Answer> {
+    let answer: [Question: Answer]
 }
 
 
 class Flow<Question, Answer, R: Router> where R.Question == Question, R.Answer == Answer {
     private let router: R
     private let questions: [Question]
-    
     private var results: [Question: Answer] = [:]
     
     init (questions: [Question], router: R) {
@@ -33,7 +36,7 @@ class Flow<Question, Answer, R: Router> where R.Question == Question, R.Answer =
         if let firstQuestion = questions.first {
             router.route(to: firstQuestion, answerCallback: nextCallback(question: firstQuestion))
         } else {
-            router.route(to: results)
+            router.route(to: result())
         }
     }
     
@@ -51,9 +54,13 @@ class Flow<Question, Answer, R: Router> where R.Question == Question, R.Answer =
                 let nextQuestion = questions[firstIndex+1]
                 router.route(to: nextQuestion, answerCallback: nextCallback(question: nextQuestion))
             } else {
-                router.route(to: results)
+                router.route(to:result())
             }
         }
+    }
+    
+    private func result() -> Results<Question, Answer> {
+        return Results(answer: results)
     }
     
 }
