@@ -100,25 +100,49 @@ class FlowTest: XCTestCase {
         XCTAssertEqual(router.routedResults?.answer, ["Q1": "A1", "Q2": "A2"])
     }
     
-    
+    // des not route to results
     func test_start_withOneQuestion_doesNotRouteToResults() {
         makeSut(questions: ["Q1"]).start()
-        
         XCTAssertNil(router.routedResults)
     }
     
-    func test_startAnswerFirstQuestion_withTwoQuestion_doesNotRouteToResults() {
+    func test_startAnswerFirstQuestion_withTwoQuestions_doesNotRouteToResults() {
         let sut =  makeSut(questions: ["Q1", "Q2"])
         sut.start()
-        
         router.answerCallback("A1")
         XCTAssertNil(router.routedResults)
     }
     
+    //scoring
+    func test_startAnswerFirstAndSecondQuestion_withTwoQuestions_scores() {
+        let sut = makeSut(questions: ["Q1", "Q2"], scoring: { _ in 10})
+        sut.start()
+        router.answerCallback("A1")
+        router.answerCallback("A2")
+        XCTAssertEqual(router.routedResults?.score, 10)
+    }
+    
+    func test_startAnswerFirstAndSecondQuestion_withTwoQuestions_scoresWithCorrectAnswers() {
+        var receivedAnswer = [String: String]()
+        let sut = makeSut(questions: ["Q1", "Q2"], scoring: { answers in
+            receivedAnswer = answers
+            return 20})
+        sut.start()
+        router.answerCallback("A1")
+        router.answerCallback("A2")
+        XCTAssertEqual(receivedAnswer, ["Q1": "A1", "Q2":"A2"])
+    }
+    
+    
+    
+    
+    
+    
+    
     //  MARK:- Helpers
     
-    func makeSut(questions: [String]) -> Flow<String, String, RouterSpy> {
-        return Flow(questions: questions, router: router)
+    func makeSut(questions: [String], scoring: @escaping ([String: String]) -> Int = {_ in 0 }) -> Flow<String, String, RouterSpy> {
+        return Flow(questions: questions, router: router, scoring: scoring)
     }
     
     
