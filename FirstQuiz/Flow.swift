@@ -8,21 +8,6 @@
 
 import Foundation
 
-protocol Router {
-    
-    associatedtype Question: Hashable
-    associatedtype Answer
-    
-    func route(to question: Question, answerCallback: @escaping (Answer) -> Void)
-    func route(to result: Results<Question, Answer>)
-}
-
-struct Results<Question: Hashable, Answer> {
-    let answer: [Question: Answer]
-    let score: Int
-}
-
-
 class Flow<Question, Answer, R: Router> where R.Question == Question, R.Answer == Answer {
     private let router: R
     private let questions: [Question]
