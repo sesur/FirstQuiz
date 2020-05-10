@@ -10,9 +10,9 @@ import Foundation
 @testable import FirstQuiz
 
 class RouterSpy: Router {
-    var routedQuestions: [Question] = []
+    var routedQuestions: [String] = []
     var routedResults: Results<String, String>? = nil
-    var answerCallback: (Answer) -> Void = {_ in }
+    var answerCallback: (String) -> Void = {_ in }
     
     func route(to question: String, answerCallback: @escaping (String) -> Void) {
         routedQuestions.append(question)
