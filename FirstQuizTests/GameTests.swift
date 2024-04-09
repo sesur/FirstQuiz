@@ -1,11 +1,3 @@
-//
-//  GameTests.swift
-//  FirstQuizTests
-//
-//  Created by Sergiu on 3/29/20.
-//  Copyright © 2020 Sergiu. All rights reserved.
-//
-
 import Foundation
 import XCTest
 import FirstQuiz

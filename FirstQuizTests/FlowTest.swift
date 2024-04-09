@@ -1,11 +1,3 @@
-//
-//  FlowTest.swift
-//  FirstQuizTests
-//
-//  Created by Sergiu on 1/8/20.
-//  Copyright © 2020 Sergiu. All rights reserved.
-//
-
 import Foundation
 import XCTest
 @testable import FirstQuiz
@@ -132,13 +124,7 @@ class FlowTest: XCTestCase {
         router.answerCallback("A2")
         XCTAssertEqual(receivedAnswer, ["Q1": "A1", "Q2":"A2"])
     }
-    
-    
-    
-    
-    
-    
-    
+
     //  MARK:- Helpers
     
     func makeSut(questions: [String], scoring: @escaping ([String: String]) -> Int = {_ in 0 }) -> Flow<String, String, RouterSpy> {

@@ -1,11 +1,3 @@
-//
-//  Flow.swift
-//  FirstQuiz
-//
-//  Created by Sergiu on 1/8/20.
-//  Copyright © 2020 Sergiu. All rights reserved.
-//
-
 import Foundation
 
 class Flow<Question, Answer, R: Router> where R.Question == Question, R.Answer == Answer {
@@ -50,5 +42,4 @@ class Flow<Question, Answer, R: Router> where R.Question == Question, R.Answer =
     private func result() -> Results<Question, Answer> {
         return Results(answer: results, score: scoring(results))
     }
-    
 }

@@ -1,11 +1,3 @@
-//
-//  Game.swift
-//  FirstQuiz
-//
-//  Created by Sergiu on 3/29/20.
-//  Copyright © 2020 Sergiu. All rights reserved.
-//
-
 import Foundation
 
 public class Game<Question, Answer, R: Router> where R.Question == Question, R.Answer == Answer {
@@ -21,7 +13,6 @@ public func startGame<Question, Answer: Equatable, R: Router> (questions: [Quest
     flow.start()
     return Game(flow: flow)
 }
-
 
 private func scoring<Question, Answer: Equatable>(_ answers: [Question: Answer], correctAnswers: [Question: Answer]) -> Int {
     return answers.reduce(0) { (score, tuple) in
